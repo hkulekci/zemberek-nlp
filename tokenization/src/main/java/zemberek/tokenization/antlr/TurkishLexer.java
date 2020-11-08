@@ -18,6 +18,7 @@ import org.antlr.v4.runtime.atn.ATN;
 import org.antlr.v4.runtime.atn.ATNDeserializer;
 import org.antlr.v4.runtime.atn.PredictionContextCache;
 import org.antlr.v4.runtime.dfa.DFA;
+import zemberek.tokenization.TurkishTokenizer;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class TurkishLexer extends Lexer {
@@ -115,7 +116,10 @@ public class TurkishLexer extends Lexer {
   static {
     try {
       for (String line : Resources
-          .readLines(Resources.getResource("tokenization/abbreviations.txt"), Charsets.UTF_8)) {
+          .readLines(
+                  TurkishLexer.class.getClassLoader().getResource("tokenization/abbreviations.txt"),
+                  Charsets.UTF_8
+          )) {
         if (line.trim().length() > 0) {
           final String abbr = line.trim().replaceAll("\\s+", ""); // erase spaces
           if (abbr.endsWith(".")) {
